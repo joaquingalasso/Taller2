@@ -25,7 +25,6 @@ h1 {
 h2 {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 1em;
   color: #2d5a2d;
 }
 
@@ -60,7 +59,7 @@ p {
 .text-section h2 {
   font-size: 1.5rem;
   font-weight: 400;
-  margin-bottom: 1.5em;
+
   color: #2d2d2d;
 }
 
@@ -69,7 +68,6 @@ p {
 .testimonials h2,
 .products-section h2 {
   text-align: center;
-  margin-bottom: 1.5em;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -170,23 +168,41 @@ header, footer {
   height: auto;
 }
 
+.guides img{
+  display: block;
+  max-width:230px;
+  max-height:140px;
+  width: auto;
+  height: auto;
+}
+
 .guides {
   padding: 40px;
-  text-align: center;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 0 !important;
 }
 .guide {
   background: #AFCCAE;
   margin: 10px;
   padding: 20px;
   display: inline-block;
-  max-width: 400px;
+  align-self: center;
 }
 .guide2 {
   background: #DBEDF1;
   margin: 10px;
   padding: 20px;
   display: inline-block;
-  max-width: 400px;
+  align-self: center;
+}
+
+.steps {
+  display: flex;
+  align-items: center;
 }
 
 .benefits {
@@ -453,7 +469,7 @@ header, footer {
   .text-section,
   .image-section {
     max-width: 100%;
-    text-align: center;
+    text-align: left;
   }
 
   .text-section h1 {
