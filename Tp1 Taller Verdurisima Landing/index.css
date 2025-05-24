@@ -8,6 +8,14 @@ body {
   color: #333;
 }
 
+.verdurisima {
+  font-size: 3em;
+}
+
+.descuento {
+  font-size: 2em;
+}
+
 /* Jerarquía de encabezados */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
@@ -95,6 +103,14 @@ p {
 
 /* Ajustes para móviles */
 @media (max-width: 768px) {
+  .verdurisima {
+    font-size: 2em;
+  }
+
+  .descuento {
+    font-size: 1.5em;
+  }
+
   h1 {
     font-size: 2rem;
   }
