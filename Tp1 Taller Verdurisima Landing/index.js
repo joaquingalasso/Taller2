@@ -10,6 +10,65 @@ const closeButton = document.querySelector(".close-button");
 
 let confettiInterval = null;
 
+// Touch functionality for products carousel
+const productsScrollContainer = document.querySelector('.products-scroll-container');
+const productsGrid = document.querySelector('.products-grid');
+
+if (productsScrollContainer && productsGrid) {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  // Mouse events
+  productsScrollContainer.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - productsScrollContainer.offsetLeft;
+    scrollLeft = productsScrollContainer.scrollLeft;
+    productsScrollContainer.style.cursor = 'grabbing';
+    productsScrollContainer.style.userSelect = 'none';
+  });
+
+  productsScrollContainer.addEventListener('mouseleave', () => {
+    isDown = false;
+    productsScrollContainer.style.cursor = 'grab';
+  });
+
+  productsScrollContainer.addEventListener('mouseup', () => {
+    isDown = false;
+    productsScrollContainer.style.cursor = 'grab';
+  });
+
+  productsScrollContainer.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - productsScrollContainer.offsetLeft;
+    const walk = (x - startX) * 2; // Scroll faster
+    productsScrollContainer.scrollLeft = scrollLeft - walk;
+  });
+
+  // Touch events for mobile
+  productsScrollContainer.addEventListener('touchstart', (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - productsScrollContainer.offsetLeft;
+    scrollLeft = productsScrollContainer.scrollLeft;
+  }, { passive: true });
+
+  productsScrollContainer.addEventListener('touchend', () => {
+    isDown = false;
+  }, { passive: true });
+
+  productsScrollContainer.addEventListener('touchmove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.touches[0].pageX - productsScrollContainer.offsetLeft;
+    const walk = (x - startX) * 1.5; // Scroll slightly faster than finger movement
+    productsScrollContainer.scrollLeft = scrollLeft - walk;
+  }, { passive: false });
+
+  // Add grab cursor style
+  productsScrollContainer.style.cursor = 'grab';
+}
+
 // Mostrar modal
 document.querySelectorAll("button").forEach(btn => {
   if (/(quiero|dale)/i.test(btn.innerText)) {
@@ -61,24 +120,26 @@ function startConfettiLoop() {
 }
 
 // Manejo del formulario
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
+if (form) {
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const diet = document.getElementById("diet").value;
-  const descuentos = document.querySelector('input[name="descuentos"]:checked').value;
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const diet = document.getElementById("diet").value;
+    const descuentos = document.querySelector('input[name="descuentos"]:checked').value;
 
-  userName.textContent = name;
-  userEmail.textContent = email;
-  userDiet.textContent = diet;
-  discountMsg.textContent = descuentos === "sí"
-    ? "¡También te van a llegar alertas de futuros descuentos!"
-    : "No recibirás alertas de descuentos.";
+    userName.textContent = name;
+    userEmail.textContent = email;
+    userDiet.textContent = diet;
+    discountMsg.textContent = descuentos === "sí"
+      ? "¡También te van a llegar alertas de futuros descuentos!"
+      : "No recibirás alertas de descuentos.";
 
-  form.classList.add("hidden");
-  thankYou.classList.remove("hidden");
+    form.classList.add("hidden");
+    thankYou.classList.remove("hidden");
 
-  // Llamo a la funcion que inicia el confeti continuo 🎉
-  startConfettiLoop();
-});
+    // Llamo a la funcion que inicia el confeti continuo 🎉
+    startConfettiLoop();
+  });
+}
